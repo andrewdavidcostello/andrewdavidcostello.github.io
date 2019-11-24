@@ -493,6 +493,12 @@
 		var scripts = [],
 			scriptsToLoad = 0;
 
+		// Object.values(plugins).forEach(plugin => {
+		// 	if (plugin.runBefore === true) {
+		// 		plugin.init();
+		// 	}
+		// });
+
 		config.dependencies.forEach( function( s ) {
 			// Load if there's no condition or the condition is truthy
 			if( !s.condition || s.condition() ) {
@@ -548,10 +554,7 @@
 				}
 			};
 
-			for( var i in plugins ) {
-
-				var plugin = plugins[i];
-
+			Object.values(plugins).forEach(plugin => {
 				// If the plugin has an 'init' method, invoke it
 				if( typeof plugin.init === 'function' ) {
 					var callback = plugin.init();
@@ -568,7 +571,7 @@
 					afterPlugInitialized();
 				}
 
-			}
+			});
 
 		}
 
