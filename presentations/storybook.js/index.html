@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Storybook.js</title>
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
@@ -40,7 +40,7 @@
 
 						*&ldquo;Storybook is an open source tool for developing UI components in isolation for React, Vue, and Angular.&rdquo;* <!-- .element: class="fragment" data-fragment-index="2" -->
 
-						<video width="500" data-src="./videos/storybook-hero-video-optimized.mp4" autoplay class="fragment" data-fragment-index="2"></video>
+						<video width="500" data-src="./videos/storybook-hero-video-optimized.mp4" autoplay loop class="fragment" data-fragment-index="2"></video>
 					</textarea>
 				</section>
 				<section>
@@ -59,7 +59,7 @@
 					</section>
 					<section data-markdown data-background-color="#BA0C2F">
 						<textarea data-template>
-							### Opia use case: The Problem
+							### Opia use case: The Issues
 							
 							Components stored within skeleton
 							
@@ -68,10 +68,9 @@
 								<img height="300" data-src="./images/opia-problem-2.png" class="block" style="margin-left: 1em;" />
 							</div>
 
-							Created two issues:
-
 							- Checkbox work being redone
 							- Duplicate component
+							- No isolated development environment
 						</textarea>
 					</section>
 					<section data-markdown data-background-color="#BA0C2F">
@@ -82,6 +81,7 @@
 
 							- Given an easily locatable base checkbox component
 							- Provided the checkbox component entirely by adding the package
+							- Gives you an environment to develop your components
 						</textarea>
 					</section>
 				</section>
@@ -108,6 +108,31 @@ export default function Task({
 		</div>
 	);
 }
+</script>
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							The story structure can be controlled by altering the config.
+
+							By default it will look in a separate `/stories` folder for `.stories.js` files.
+
+							In this example we place the stories inline with the components.
+
+							Here the css is also imported to apply any global styles.
+
+<script class="prism" type="text/template" data-language="language-jsx">
+// .storybook/config.js
+import { configure } from '@storybook/react';
+import '../src/index.css';
+
+const req = require.context('../src', true, /\.stories.js$/);
+
+function loadStories() {
+  req.keys().forEach(filename => req(filename));
+}
+
+configure(loadStories, module);
 </script>
 						</textarea>
 					</section>
@@ -143,11 +168,30 @@ storiesOf('Task', module)
 </script>
 						</textarea>
 					</section>
+					<section data-markdown>
+						<textarea data-template>
+							We can now run `npm run storybook` to launch the UI. This will be hot reloaded on any component/story changes.
+							<video height="600" data-src="./videos/inprogress-task-states.mp4" autoplay loop></video>
+						</textarea>
+					</section>
 				</section>
 				<section>
 					<section data-markdown>
 						<textarea data-template>
 							### Creating a composite component
+
+							A composite component is an orchestration of simpler components. 
+							
+							Here we are also likely to use decorators.
+
+							> **Decorators** are a way to provide arbitrary wrappers to stories. Use decorators to add styling or used to wrap stories in “providers” –i.e. library components that set context.
+
+							`.addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)`
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							<video height="600" data-src="./videos/finished-tasklist-states.mp4" autoplay loop></video>
 						</textarea>
 					</section>
 				</section>
