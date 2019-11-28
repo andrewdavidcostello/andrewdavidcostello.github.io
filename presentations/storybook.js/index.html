@@ -264,17 +264,10 @@ storiesOf('PureInboxScreen', module)
 				<section>
 					<section data-markdown>
 						<textarea data-template>
-							### Visual Regression Testing
+							### Structural Testing
 
-							- Storybook provides us with a great tool for visual testing but takes it one step further with snapshot tests via Storyshots <!-- .element: class="fragment" -->
+							- Storybook provides us with a great tool for visual testing but takes it one step further with structural snapshot tests via Storyshots <!-- .element: class="fragment" -->
 							- With Storybook as we have already written a Story the tests are pretty much free <!-- .element: class="fragment" -->
-						</textarea>
-					</section>
-					<section data-markdown>
-						<textarea data-template>
-							&ldquo;Visual regression tests are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.&rdquo;
-
-							<video data-src="./videos/visual-regression-testing.mp4" autoplay loop></video>
 						</textarea>
 					</section>
 					<section>
@@ -291,6 +284,33 @@ initStoryshots();
 						</p>
 
 						<p class="fragment">Now when you run your Jest test command all of your stories are converted as Jest snapshot tests.</p>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							Structural testing will only make you aware of changes in the Dom, it isn't to be considered a solution to check the overall appearance of a component.
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### Visual Regression Testing
+
+							&ldquo;Visual regression tests are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.&rdquo;
+
+							<video height="400" data-src="./videos/visual-regression-testing.mp4" autoplay loop></video>
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							Storybook can integrate with a paid service for visual regression tests called Chromatic which will help provide regression testing both manually and through CI.
+
+							It can also integrate with other visual regression tools such as jest-image-snapshot. <!-- .element: class="fragment" -->
+
+							This combines with pupeteer to run your Storybook in a headless browser and compares the image to the last snapshot. <!-- .element: class="fragment" -->
+
+							This will then warn you of a difference if any between the latest snapshot and the test snapshot. <!-- .element: class="fragment" -->
+
+							If the current snapshot is correct the tests can be ran with a flag to update to the comparison snapshot. <!-- .element: class="fragment" -->
+						</textarea>
 					</section>
 				</section>
 				<section>
