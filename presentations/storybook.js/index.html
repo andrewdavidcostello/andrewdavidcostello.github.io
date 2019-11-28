@@ -12,7 +12,6 @@
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/monokai.css">
-
 		<link rel="stylesheet" href="plugin/prism/prism.css">
 
 		<!-- Printing and PDF exports -->
@@ -38,9 +37,9 @@
 					<textarea data-template>
 						## What is Storybook.js?
 
-						*&ldquo;Storybook is an open source tool for developing UI components in isolation for React, Vue, and Angular.&rdquo;* <!-- .element: class="fragment" data-fragment-index="2" -->
+						*&ldquo;Storybook is an open source tool for developing UI components in isolation for React, Vue, and Angular.&rdquo;* <!-- .element: class="fragment" -->
 
-						<video width="500" data-src="./videos/storybook-hero-video-optimized.mp4" autoplay loop class="fragment" data-fragment-index="3"></video>
+						<video width="500" data-src="./videos/storybook-hero-video-optimized.mp4" autoplay loop class="fragment"></video>
 					</textarea>
 				</section>
 				<section>
@@ -61,16 +60,16 @@
 						<textarea data-template>
 							### Opia use case: The Issues
 							
-							Components stored within skeleton
+							Components stored within skeleton <!-- .element: class="fragment" -->
 							
-							<div style="display: flex; justify-content: center;">
+							<div class="fragment" style="display: flex; justify-content: center;">
 								<img height="300" data-src="./images/opia-problem-1.png" class="block" />
 								<img height="300" data-src="./images/opia-problem-2.png" class="block" style="margin-left: 1em;" />
 							</div>
 
-							- Checkbox work being redone
-							- Duplicate component
-							- No isolated development environment
+							- Checkbox work being redone <!-- .element: class="fragment" -->
+							- Duplicate component <!-- .element: class="fragment" -->
+							- No isolated development environment <!-- .element: class="fragment" -->
 						</textarea>
 					</section>
 					<section data-markdown data-background-color="#BA0C2F">
@@ -79,9 +78,9 @@
 
 							A Storybook.js repo to hold the components could have:
 
-							- Given an easily locatable base checkbox component
-							- Provided the checkbox component entirely by adding the package
-							- Gives you an environment to develop your components
+							- Given an easily locatable base checkbox component <!-- .element: class="fragment" -->
+							- Provided the checkbox component entirely by adding the package <!-- .element: class="fragment" -->
+							- Gives you an environment to develop your components <!-- .element: class="fragment" -->
 						</textarea>
 					</section>
 				</section>
@@ -121,7 +120,7 @@ export default function Task({
 
 							Here the css is also imported to apply any global styles.
 
-<script class="prism" type="text/template" data-language="language-jsx">
+<script class="prism" type="text/template" data-language="language-jsx" data-fragment>
 // .storybook/config.js
 import { configure } from '@storybook/react';
 import '../src/index.css';
@@ -180,13 +179,13 @@ storiesOf('Task', module)
 						<textarea data-template>
 							### Creating a composite component
 
-							A composite component is an orchestration of simpler components. 
+							A composite component is an orchestration of simpler components. <!-- .element: class="fragment" -->
 							
-							Here we are also likely to use decorators.
+							Here we are also likely to use decorators. <!-- .element: class="fragment" -->
 
-							> **Decorators** are a way to provide arbitrary wrappers to stories. Use decorators to add styling or used to wrap stories in “providers” –i.e. library components that set context.
+							> Decorators are a way to provide arbitrary wrappers to stories. Use decorators to add styling or used to wrap stories in “providers” –i.e. library components that set context. <!-- .element: class="fragment" -->
 
-							`.addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)`
+							`.addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)` <!-- .element: class="fragment" -->
 						</textarea>
 					</section>
 					<section data-markdown>
@@ -318,6 +317,14 @@ initStoryshots();
 					<section data-markdown>
 						<textarea data-template>
 							### Addons
+
+							Storybook is great as is but it also has a great set of addons available to expand on the core functionality. <!-- .element: class="fragment" -->
+
+							- Knobs: Allows you to tweak the props of your components dynamically, this can help other people besides developers highlight issues with components <!-- .element: class="fragment" -->
+							- a11y: Exactly what it says, tests your components to ensure they adhere to accessibility standards <!-- .element: class="fragment" -->
+							- Links: Allows you to link components together to quickly produce demos and prototypes within Storybook <!-- .element: class="fragment" -->
+							- Info: By enabling extra information for a story you can create styleguides or simply provide more detail on a story <!-- .element: class="fragment" -->
+
 						</textarea>
 					</section>
 				</section>
@@ -332,7 +339,8 @@ initStoryshots();
 						</textarea>
 					</section>
 				</section>
-				<section>Fin</section>
+				<section data-background-color="#000000" data-background="./images/fin.png" data-background-transition="slide">
+				</section>
 			</div>
 		</div>
 
