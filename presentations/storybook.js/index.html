@@ -40,7 +40,7 @@
 
 						*&ldquo;Storybook is an open source tool for developing UI components in isolation for React, Vue, and Angular.&rdquo;* <!-- .element: class="fragment" data-fragment-index="2" -->
 
-						<video width="500" data-src="./videos/storybook-hero-video-optimized.mp4" autoplay loop class="fragment" data-fragment-index="2"></video>
+						<video width="500" data-src="./videos/storybook-hero-video-optimized.mp4" autoplay loop class="fragment" data-fragment-index="3"></video>
 					</textarea>
 				</section>
 				<section>
@@ -199,34 +199,136 @@ storiesOf('Task', module)
 					<section data-markdown>
 						<textarea data-template>
 							### Using connected components (containers)
+
+							- A Container is a component with the sole purpose to manage data <!-- .element: class="fragment" -->
+							- The components demonstrated so far have been Presentational Components <!-- .element: class="fragment" -->
+							- You may also here the term Functional/Stateless Components <!-- .element: class="fragment" -->
+							- In general Storybook.js will handle stories using props and Presentational/Functional Components <!-- .element: class="fragment" -->
 						</textarea>
+					</section>
+					<section>
+						<img width="800" data-src="./images/suspense.gif" />
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
 						<textarea data-template>
 							### Pulling components together to create ‘screens’
+
+							- Screens are a combination of components which show you a 'page' <!-- .element: class="fragment" -->
+							- As screens will possibly use connected nested components, we need to supply state <!-- .element: class="fragment" -->
+							- This is another reason beyond ease of testing that it is simpler to pass down state <!-- .element: class="fragment" -->
 						</textarea>
+					</section>
+					<section>
+						<script class="prism" type="text/template" data-language="language-jsx">
+import { action } from '@storybook/addon-actions';
+import { storiesOf } from '@storybook/vue';
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+import { defaultTaskList } from './PureTaskList.stories';
+import PureInboxScreen from './PureInboxScreen.vue';
+
+Vue.use(Vuex);
+export const store = new Vuex.Store({
+	state: {
+		tasks: defaultTaskList,
+	},
+	actions: {
+		pinTask(context, id) {
+			action('pinTask')(id);
+		},
+		archiveTask(context, id) {
+			action('archiveTask')(id);
+		},
+	},
+});
+
+storiesOf('PureInboxScreen', module)
+	.add('default', () => {
+		return {
+			components: { PureInboxScreen },
+			template: `<pure-inbox-screen/>`,
+			store,
+		};
+	})
+	.add('error', () => {
+		return {
+			components: { PureInboxScreen },
+			template: `<pure-inbox-screen :error="true"/>`,
+		};
+	});
+						</script>
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
 						<textarea data-template>
 							### Visual Regression Testing
+
+							- Storybook provides us with a great tool for visual testing but takes it one step further with snapshot tests via Storyshots <!-- .element: class="fragment" -->
+							- With Storybook as we have already written a Story the tests are pretty much free <!-- .element: class="fragment" -->
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							&ldquo;Visual regression tests are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.&rdquo;
+
+							<video data-src="./videos/visual-regression-testing.mp4" autoplay loop></video>
+						</textarea>
+					</section>
+					<section>
+						<p>There is some boilerplate setup but the gist is...</p>
+
+						<p class="fragment">Create a new test file with the name Storyshots.test.js. (Or whatever the name you prefer, as long as it matches Jest's config testMatch). Then add following content to it:</p>
+
+						<p class="fragment">
+						<script class="prism" type="text/template" data-language="language-jsx">
+import initStoryshots from '@storybook/addon-storyshots';
+
+initStoryshots();
+						</script>
+						</p>
+
+						<p class="fragment">Now when you run your Jest test command all of your stories are converted as Jest snapshot tests.</p>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							### Deploy
+
+							- As shown we can run Storybook locally which allows us to also instantly see updates to our components <!-- .element: class="fragment" -->
+							- When deploying we need to export it <!-- .element: class="fragment" -->
+							- Use this use and any CI tool to keep an online version of your stories up to date on any code changes <!-- .element: class="fragment" -->
+						</textarea>
+
+						<script class="prism" type="text/template" data-language="language-js" data-fragment>
+// package.json
+{
+	"scripts": {
+		"build-storybook": "build-storybook -c .storybook"
+	}
+}
+						</script>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							### Addons
 						</textarea>
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
 						<textarea data-template>
-							### CI
-						</textarea>
-					</section>
-				</section>
-				<section>
-					<section data-markdown>
-						<textarea data-template>
-							### Drawbacks: Separate set of dependencies
+							### Drawbacks
+
+							- Another set of config/build to maintain <!-- .element: class="fragment" -->
+							- Complex bundler configs could lead to hidden/obscure issues <!-- .element: class="fragment" -->
+							- Requires initial time investment to learn package <!-- .element: class="fragment" -->
 						</textarea>
 					</section>
 				</section>
@@ -244,8 +346,8 @@ storiesOf('Task', module)
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/prism/prism.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
 				]
 			});
 		</script>

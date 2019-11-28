@@ -18,10 +18,14 @@ let PrismPlugin = {
             let preElement = document.createElement('pre');
             let codeElement = document.createElement('code');
             let languageClass = block.dataset.language;
+          console.log(block);
             let language = languageClass.split('-')[1];
             let code = Prism.highlight(block.textContent.trim(), Prism.languages[language], language);
             
             codeElement.classList.add(languageClass);
+            if (block.dataset.fragment !== undefined) {
+              preElement.classList.add('fragment');
+            }
             preElement.appendChild(codeElement);
 
             codeElement.innerHTML = code;
